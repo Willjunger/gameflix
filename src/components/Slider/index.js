@@ -15,6 +15,7 @@ const Container = styled.ul`
 		height: 30px;
 		transform: initial;
 		&:before {
+			color: red;
 			font-size: 30px;
 		}
 	}
@@ -42,7 +43,7 @@ const Slider = ({ children }) => (
 		<SlickSlider
 			{...{
 				dots: false,
-				infinite: false,
+				infinite: true,
 				speed: 300,
 				centerMode: false,
 				variableWidth: true,

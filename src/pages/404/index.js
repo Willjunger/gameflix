@@ -25,7 +25,7 @@ function Pagina404() {
 		<PageDefault>
 			<Container>
 				<Titulo>GAME OVER</Titulo>
-				<Numero>{numero}</Numero>
+				<Numero>0{numero}</Numero>
 				<GoHome to="/">PRESS RESTART</GoHome>
 			</Container>
 		</PageDefault>

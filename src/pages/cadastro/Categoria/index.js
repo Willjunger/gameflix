@@ -1,22 +1,67 @@
 import React from "react";
-import { Link } from "react-router-dom";
+
 import PageDefault from "../../../components/PageDefault";
+import { Form, Salvar, Limpar, Input, TextArea, Select, Label, Container, Table, Tbody } from "./styles";
 
 function CadastroCategoria() {
 	return (
 		<PageDefault>
-			<h1>Cadastro de Categoria</h1>
+			<h1>Nova Categoria</h1>
 
-			<form>
-				<label>
-					Nome da Categoria:
-					<input type="text" />
-				</label>
+			<Form>
+				<Label>
+					Nome
+					<Input type="text" />
+				</Label>
 
-				<button>Cadastrar</button>
-			</form>
+				<Label>
+					Videos
+					<TextArea rows="5"></TextArea>
+				</Label>
 
-			<Link to="/">Ir para home</Link>
+				<Container>
+					<Select>
+						<option name="cor" value="cor">
+							Cor
+						</option>
+					</Select>
+				</Container>
+
+				<Label>
+					Código de Segurança
+					<Input type="text" />
+				</Label>
+
+				<div>
+					<Salvar>Salvar</Salvar>
+					<Limpar>Limpar</Limpar>
+				</div>
+			</Form>
+
+			<Table>
+				<thead>
+					<tr>
+						<th>Nome</th>
+						<th>Descrição</th>
+						<th>Editar</th>
+						<th>Remover</th>
+					</tr>
+				</thead>
+				<Tbody>
+					<tr>
+						<td>FPS</td>
+						<td>Jogos</td>
+						<td>Editar</td>
+						<td>Remover</td>
+					</tr>
+					<tr>
+						<td>MMORPG</td>
+						<td>Tibia</td>
+						<td>Editar</td>
+						<td>Remover</td>
+					</tr>
+				</Tbody>
+			</Table>
 		</PageDefault>
 	);
 }
