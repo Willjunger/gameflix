@@ -1,67 +1,55 @@
-import React from "react";
+import React, { useState } from "react";
 
 import PageDefault from "../../../components/PageDefault";
-import { Form, Salvar, Limpar, Input, TextArea, Select, Label, Container, Table, Tbody } from "./styles";
+import FormField from "../../../components/FormField";
+import TabelaCategoria from "./TabelaCategoria";
+import "./categoria.css";
+
+const valoresIniciais = {
+	nome: "",
+	descricao: "",
+	cor: "",
+};
 
 function CadastroCategoria() {
+	const [categorias, setCategorias] = useState([]);
+	const [values, setValues] = useState(valoresIniciais);
+
+	function handleSubmit(e) {
+		e.preventDefault();
+		setCategorias([...categorias, values]);
+		setValues(valoresIniciais);
+	}
+
+	function setValue(chave, valor) {
+		setValues({
+			...values,
+			[chave]: valor,
+		});
+	}
+
+	function handleChange(e) {
+		setValue(e.target.getAttribute("name"), e.target.value);
+	}
+
 	return (
 		<PageDefault>
-			<h1>Nova Categoria</h1>
+			<h1 style={{ textAlign: "center", marginBottom: "40px" }}>Nova Categoria</h1>
 
-			<Form>
-				<Label>
-					Nome
-					<Input type="text" />
-				</Label>
+			<form onSubmit={handleSubmit}>
+				<FormField label="Nome da Categoria" type="text" name="nome" value={values.nome} onChange={handleChange} />
+				<FormField label="Descrição" type="textarea" name="descricao" value={values.descricao} onChange={handleChange} />
+				<FormField label="Cor" type="color" name="cor" value={values.cor} onChange={handleChange} />
 
-				<Label>
-					Videos
-					<TextArea rows="5"></TextArea>
-				</Label>
-
-				<Container>
-					<Select>
-						<option name="cor" value="cor">
-							Cor
-						</option>
-					</Select>
-				</Container>
-
-				<Label>
-					Código de Segurança
-					<Input type="text" />
-				</Label>
-
-				<div>
-					<Salvar>Salvar</Salvar>
-					<Limpar>Limpar</Limpar>
+				<div className="botoes">
+					<button type="submit" className=" btn btn-salvar">
+						Salvar
+					</button>
+					<button className=" btn btn-limpar">Limpar</button>
 				</div>
-			</Form>
+			</form>
 
-			<Table>
-				<thead>
-					<tr>
-						<th>Nome</th>
-						<th>Descrição</th>
-						<th>Editar</th>
-						<th>Remover</th>
-					</tr>
-				</thead>
-				<Tbody>
-					<tr>
-						<td>FPS</td>
-						<td>Jogos</td>
-						<td>Editar</td>
-						<td>Remover</td>
-					</tr>
-					<tr>
-						<td>MMORPG</td>
-						<td>Tibia</td>
-						<td>Editar</td>
-						<td>Remover</td>
-					</tr>
-				</Tbody>
-			</Table>
+			<TabelaCategoria categoria={categorias} />
 		</PageDefault>
 	);
 }

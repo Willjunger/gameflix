@@ -1,0 +1,22 @@
+.div-table {
+	overflow-x: auto;
+}
+
+table {
+	width: 100%;
+	border: 1px solid var(--white);
+	margin-bottom: 30px;
+}
+
+table thead tr th {
+	font-size: 20px;
+	text-align: start;
+	border: 1px solid var(--white);
+	padding: 10px;
+}
+
+table tbody tr td {
+	border-right: 1px solid var(--white);
+	padding: 10px;
+	font-weight: lighter;
+}

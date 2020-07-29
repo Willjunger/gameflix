@@ -1,0 +1,71 @@
+.container {
+	width: 100%;
+	margin-bottom: 40px;
+}
+
+.input {
+	width: 100%;
+	height: 50px;
+	border: none;
+	border-radius: 4px;
+	background-color: #53585d;
+	padding-left: 20px;
+}
+
+.textarea {
+	width: 100%;
+	resize: none;
+	border: none;
+	border-radius: 4px;
+	background-color: #53585d;
+	padding: 20px;
+}
+
+.label-flutuante {
+	position: relative;
+}
+
+.label-flutuante input,
+.label-flutuante textarea {
+	outline: none;
+	font-size: 16px;
+	appearance: none;
+	color: white;
+	transition: all 0.3s ease-out;
+	-webkit-transition: all 0.3s ease-out;
+	-moz-transition: all 0.3s ease-out;
+	-webkit-appearance: none;
+}
+
+.label-flutuante input::placeholder,
+.label-flutuante textarea::placeholder {
+	color: transparent;
+}
+
+.label-flutuante label {
+	pointer-events: none;
+	margin-top: 0;
+	box-sizing: border-box;
+	position: absolute;
+	top: calc(50% - 10px);
+	left: 20px;
+	transition: all 0.3s ease-out;
+	-webkit-transition: all 0.3s ease-out;
+	-moz-transition: all 0.3s ease-out;
+	color: white;
+}
+
+.label-flutuante input:focus + label,
+.label-flutuante textarea:focus + label,
+.label-flutuante input:not(:placeholder-shown) + label,
+.label-flutuante textarea:not(:placeholder-shown) + label {
+	top: 0px;
+	font-size: 10px;
+	margin-top: 5px;
+	color: grey;
+}
+
+.label-flutuante input:required:invalid + label:before,
+.label-flutuante textarea:required:invalid + label:before {
+	content: "*";
+}

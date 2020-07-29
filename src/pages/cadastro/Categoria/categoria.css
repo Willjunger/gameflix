@@ -1,0 +1,29 @@
+.botoes {
+	margin-bottom: 40px;
+	display: flex;
+	justify-content: flex-start;
+}
+
+.btn {
+	border: none;
+	border-radius: 4px;
+	width: 150px;
+	height: 40px;
+	min-width: 110;
+}
+
+.btn:hover {
+	opacity: 0.9;
+	cursor: pointer;
+}
+
+.btn-salvar {
+	color: var(--white);
+	background-color: var(--primary);
+}
+
+.btn-limpar {
+	color: var(--white);
+	background-color: var(--blackLighter);
+	margin-left: 20px;
+}
