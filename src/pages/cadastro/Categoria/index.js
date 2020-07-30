@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-
+import React, { useState, useEffect } from "react";
 import PageDefault from "../../../components/PageDefault";
 import FormField from "../../../components/FormField";
 import TabelaCategoria from "./TabelaCategoria";
@@ -32,6 +31,14 @@ function CadastroCategoria() {
 		setValue(e.target.getAttribute("name"), e.target.value);
 	}
 
+	useEffect(() => {
+		const URL = "http://localhost:8080/categorias";
+		fetch(URL).then(async (response) => {
+			const resposta = await response.json();
+			setCategorias([...resposta]);
+		});
+	}, []);
+
 	return (
 		<PageDefault>
 			<h1 style={{ textAlign: "center", marginBottom: "40px" }}>Nova Categoria</h1>
@@ -48,6 +55,8 @@ function CadastroCategoria() {
 					<button className=" btn btn-limpar">Limpar</button>
 				</div>
 			</form>
+
+			{categorias.length === 0 && <div>Loading...</div>}
 
 			<TabelaCategoria categoria={categorias} />
 		</PageDefault>

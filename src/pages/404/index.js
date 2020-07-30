@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Container, Titulo, Numero, GoHome } from "./styles";
 import PageDefault from "../../components/PageDefault";
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 function Pagina404() {
 	const [numero, setNumero] = useState(9);
