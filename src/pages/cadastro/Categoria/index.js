@@ -1,64 +1,65 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import PageDefault from "../../../components/PageDefault";
 import FormField from "../../../components/FormField";
+import Button from "../../../components/Button";
+import useForm from "../../../hooks/useForm";
 import TabelaCategoria from "./TabelaCategoria";
-import "./categoria.css";
-
-const valoresIniciais = {
-	nome: "",
-	descricao: "",
-	cor: "",
-};
 
 function CadastroCategoria() {
+	const valoresIniciais = {
+		nome: "",
+		descricao: "",
+		cor: "",
+	};
+
+	const { handleChange, values, clearForm } = useForm(valoresIniciais);
+
 	const [categorias, setCategorias] = useState([]);
-	const [values, setValues] = useState(valoresIniciais);
-
-	function handleSubmit(e) {
-		e.preventDefault();
-		setCategorias([...categorias, values]);
-		setValues(valoresIniciais);
-	}
-
-	function setValue(chave, valor) {
-		setValues({
-			...values,
-			[chave]: valor,
-		});
-	}
-
-	function handleChange(e) {
-		setValue(e.target.getAttribute("name"), e.target.value);
-	}
 
 	useEffect(() => {
-		const URL = window.location.hostname.includes("localhost") ? "http://localhost:8080/categorias" : "https://willgameflix.herokuapp.com/categorias";
-		fetch(URL).then(async (response) => {
-			const resposta = await response.json();
+		const URL_TOP = window.location.hostname.includes("localhost") ? "http://localhost:8080/categorias" : "https://devsoutinhoflix.herokuapp.com/categorias";
+		// E a ju ama variáveis
+		fetch(URL_TOP).then(async (respostaDoServidor) => {
+			const resposta = await respostaDoServidor.json();
 			setCategorias([...resposta]);
 		});
 	}, []);
 
 	return (
 		<PageDefault>
-			<h1 style={{ textAlign: "center", marginBottom: "40px" }}>Nova Categoria</h1>
+			<h1>
+				Cadastro de Categoria:
+				{values.nome}
+			</h1>
 
-			<form onSubmit={handleSubmit}>
-				<FormField label="Nome da Categoria" type="text" name="nome" value={values.nome} onChange={handleChange} />
+			<form
+				onSubmit={function handleSubmit(infosDoEvento) {
+					infosDoEvento.preventDefault();
+					setCategorias([...categorias, values]);
+
+					clearForm();
+				}}
+			>
+				<FormField label="Nome da Categoria" name="nome" value={values.nome} onChange={handleChange} />
+
 				<FormField label="Descrição" type="textarea" name="descricao" value={values.descricao} onChange={handleChange} />
+
 				<FormField label="Cor" type="color" name="cor" value={values.cor} onChange={handleChange} />
 
-				<div className="botoes">
-					<button type="submit" className=" btn btn-salvar">
-						Salvar
-					</button>
-					<button className=" btn btn-limpar">Limpar</button>
-				</div>
+				<Button>Cadastrar</Button>
 			</form>
 
-			{categorias.length === 0 && <div>Loading...</div>}
+			{categorias.length === 0 && (
+				<div>
+					{/* Cargando... */}
+					Loading...
+				</div>
+			)}
 
 			<TabelaCategoria categoria={categorias} />
+
+			<Link to="/">Ir para home</Link>
 		</PageDefault>
 	);
 }

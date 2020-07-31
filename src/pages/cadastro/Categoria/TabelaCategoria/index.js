@@ -16,8 +16,8 @@ export default function TabelaCategoria({ categoria }) {
 				<tbody>
 					{categoria.map((categoria) => (
 						<tr>
-							<td>{categoria.nome}</td>
-							<td>{categoria.descricao}</td>
+							<td>{categoria.titulo}</td>
+							<td></td>
 							<td>Editar</td>
 							<td>Remover</td>
 						</tr>
