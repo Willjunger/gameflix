@@ -8,7 +8,7 @@ const FormFieldWrapper = styled.div`
 		min-height: 150px;
 	}
 	input[type="color"] {
-		padding-left: 56px;
+		padding-left: 90px;
 	}
 `;
 

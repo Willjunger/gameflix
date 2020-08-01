@@ -5,6 +5,7 @@ import useForm from "../../../hooks/useForm";
 import FormField from "../../../components/FormField";
 import videosRepository from "../../../repositories/videos";
 import categoriasRepository from "../../../repositories/categorias";
+import "./video.css";
 
 function CadastroVideo() {
 	const history = useHistory();
@@ -51,7 +52,9 @@ function CadastroVideo() {
 
 				<FormField label="Categoria" name="categoria" value={values.categoria} onChange={handleChange} suggestions={categoryTitles} />
 
-				<button type="submit">Cadastrar</button>
+				<button className="btn btn-salvar" type="submit">
+					Cadastrar
+				</button>
 			</form>
 
 			<br />

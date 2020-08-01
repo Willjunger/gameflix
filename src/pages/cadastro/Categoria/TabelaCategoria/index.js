@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 
 import "./tabela.css";
-export default function TabelaCategoria({ categoria }) {
-	console.log(categoria);
+import Button from "../../../../components/Button";
+export default function TabelaCategoria({ categoria, deletar }) {
 	return (
 		<div className="div-table">
 			<table>
@@ -15,12 +15,16 @@ export default function TabelaCategoria({ categoria }) {
 					</tr>
 				</thead>
 				<tbody>
-					{categoria.map((categoria, index) => (
-						<tr key={index}>
+					{categoria.map((categoria) => (
+						<tr key={categoria.id}>
 							<td>{categoria.titulo}</td>
 							<td>{categoria.descricao}</td>
-							<td>Editar</td>
-							<td>Remover</td>
+							<td>
+								<Button>Editar</Button>
+							</td>
+							<td>
+								<Button onClick={() => deletar(categoria.id)}>Remover</Button>
+							</td>
 						</tr>
 					))}
 				</tbody>
