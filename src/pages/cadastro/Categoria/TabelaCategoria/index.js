@@ -2,6 +2,7 @@ import React from "react";
 
 import "./tabela.css";
 export default function TabelaCategoria({ categoria }) {
+	console.log(categoria);
 	return (
 		<div className="div-table">
 			<table>
@@ -14,10 +15,10 @@ export default function TabelaCategoria({ categoria }) {
 					</tr>
 				</thead>
 				<tbody>
-					{categoria.map((categoria) => (
-						<tr>
+					{categoria.map((categoria, index) => (
+						<tr key={index}>
 							<td>{categoria.titulo}</td>
-							<td></td>
+							<td>{categoria.descricao}</td>
 							<td>Editar</td>
 							<td>Remover</td>
 						</tr>

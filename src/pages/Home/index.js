@@ -9,7 +9,6 @@ function Home() {
 	const [dadosIniciais, setDadosIniciais] = useState([]);
 
 	useEffect(() => {
-		// http://localhost:8080/categorias?_embed=videos
 		categoriasRepository
 			.getAllWithVideos()
 			.then((categoriasComVideos) => {
@@ -29,12 +28,18 @@ function Home() {
 				if (indice === 0) {
 					return (
 						<div key={categoria.id}>
-							<BannerMain videoTitle={dadosIniciais[0].videos[0].titulo} url={dadosIniciais[0].videos[0].url} videoDescription={dadosIniciais[0].videos[0].description} />
+							<BannerMain
+								videoTitle={dadosIniciais[0].videos[0].titulo}
+								url={dadosIniciais[0].videos[0].url}
+								videoDescription={
+									"Tibia é um jogo eletrônico multijogador (MMORPG) gratuito, desenvolvido pela CipSoft. Criado em 1997, é um dos jogos mais antigos do gênero. Nele, os jogadores podem desenvolver as habilidades de seus personagens, buscar tesouros, resolver enigmas e explorar áreas como cidades, masmorras, florestas, desertos, ilhas, praias, minas, etc.. Os personagens podem disputar lutas entre si ou com criaturas, tais como monstros, dragões, demônios, orcs, utilizando armas e magias, enquanto os NPCs não podem ser atacados."
+								}
+							/>
 							<Carousel ignoreFirstVideo category={dadosIniciais[0]} />
 						</div>
 					);
 				}
-				return <Carousel key={categoria.id} category={categoria} />;
+				return categoria.videos.length === 0 ? "" : <Carousel key={categoria.id} category={categoria} />;
 			})}
 			{/* {dadosIniciais.length >= 1 && (
 				<>

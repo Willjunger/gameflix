@@ -3,7 +3,6 @@ import { Link, useHistory } from "react-router-dom";
 import PageDefault from "../../../components/PageDefault";
 import useForm from "../../../hooks/useForm";
 import FormField from "../../../components/FormField";
-import Button from "../../../components/Button";
 import videosRepository from "../../../repositories/videos";
 import categoriasRepository from "../../../repositories/categorias";
 
@@ -52,7 +51,7 @@ function CadastroVideo() {
 
 				<FormField label="Categoria" name="categoria" value={values.categoria} onChange={handleChange} suggestions={categoryTitles} />
 
-				<Button type="submit">Cadastrar</Button>
+				<button type="submit">Cadastrar</button>
 			</form>
 
 			<br />

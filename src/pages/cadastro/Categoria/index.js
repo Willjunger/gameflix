@@ -1,20 +1,20 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import PageDefault from "../../../components/PageDefault";
 import FormField from "../../../components/FormField";
-import Button from "../../../components/Button";
 import useForm from "../../../hooks/useForm";
 import TabelaCategoria from "./TabelaCategoria";
+import categoriasRepository from "../../../repositories/categorias";
 
 function CadastroCategoria() {
 	const valoresIniciais = {
-		nome: "",
+		titulo: "",
 		descricao: "",
 		cor: "",
 	};
 
 	const { handleChange, values, clearForm } = useForm(valoresIniciais);
-
+	const history = useHistory();
 	const [categorias, setCategorias] = useState([]);
 
 	useEffect(() => {
@@ -22,40 +22,43 @@ function CadastroCategoria() {
 		// E a ju ama variáveis
 		fetch(URL_TOP).then(async (respostaDoServidor) => {
 			const resposta = await respostaDoServidor.json();
-			setCategorias([...resposta]);
+			setCategorias(resposta);
 		});
 	}, []);
 
 	return (
 		<PageDefault>
-			<h1>
-				Cadastro de Categoria:
-				{values.nome}
-			</h1>
+			<h1>Cadastro de Categoria</h1>
 
 			<form
 				onSubmit={function handleSubmit(infosDoEvento) {
 					infosDoEvento.preventDefault();
 					setCategorias([...categorias, values]);
 
+					categoriasRepository
+						.postCategoria({
+							titulo: values.titulo,
+							descricao: values.descricao,
+							cor: values.cor,
+						})
+						.then(() => {
+							console.log("Cadastrou com sucesso!");
+							history.push("/");
+						});
+
 					clearForm();
 				}}
 			>
-				<FormField label="Nome da Categoria" name="nome" value={values.nome} onChange={handleChange} />
+				<FormField label="Titulo da Categoria" name="titulo" value={values.titulo} onChange={handleChange} />
 
 				<FormField label="Descrição" type="textarea" name="descricao" value={values.descricao} onChange={handleChange} />
 
 				<FormField label="Cor" type="color" name="cor" value={values.cor} onChange={handleChange} />
 
-				<Button>Cadastrar</Button>
+				<button type="submit">Cadastrar</button>
 			</form>
 
-			{categorias.length === 0 && (
-				<div>
-					{/* Cargando... */}
-					Loading...
-				</div>
-			)}
+			{categorias.length === 0 && <div>Loading...</div>}
 
 			<TabelaCategoria categoria={categorias} />
 
