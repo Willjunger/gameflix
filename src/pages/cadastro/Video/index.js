@@ -18,7 +18,7 @@ function CadastroVideo() {
 	});
 
 	useEffect(() => {
-		categoriasRepository.getAll().then((categoriasFromServer) => {
+		categoriasRepository.pegarCategorias().then((categoriasFromServer) => {
 			setCategorias(categoriasFromServer);
 		});
 	}, []);

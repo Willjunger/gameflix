@@ -7,6 +7,7 @@ import TabelaCategoria from "./TabelaCategoria";
 import categoriasRepository from "../../../repositories/categorias";
 import "./categoria.css";
 import Notifications, { notify } from "react-notify-toast";
+import Loading from "../../../components/Loading";
 
 function CadastroCategoria() {
 	let myColor = { background: "#ff0000", text: "#FFFFFF" };
@@ -16,32 +17,21 @@ function CadastroCategoria() {
 		cor: "",
 	};
 
+	const fetching = false;
+
 	const { handleChange, values, clearForm } = useForm(valoresIniciais);
-	const history = useHistory();
 	const [categorias, setCategorias] = useState([]);
+	const [isFetching, setIsFetching] = useState(fetching);
 
 	useEffect(() => {
-		const URL_TOP = window.location.hostname.includes("localhost") ? "http://localhost:8080/categorias" : "https://devsoutinhoflix.herokuapp.com/categorias";
-
-		fetch(URL_TOP).then(async (respostaDoServidor) => {
-			const resposta = await respostaDoServidor.json();
-			setCategorias(resposta);
+		categoriasRepository.pegarCategorias().then((resp) => {
+			setCategorias([...resp]);
 		});
 	}, []);
 
-	function deletar(id) {
-		const index = id;
-		console.log(id);
-		// if (index !== null) {
-		// 	categorias.splice(index, 1);
-		// 	setCategorias(categorias);
-		// 	categoriasRepository.postCategoria(categorias);
-		// }
-	}
-
 	function handleSubmit(infosDoEvento) {
 		infosDoEvento.preventDefault();
-		setCategorias([...categorias, values]);
+		setIsFetching(true);
 		let titulo = "";
 		let descricao = "";
 		let cor = "";
@@ -57,19 +47,35 @@ function CadastroCategoria() {
 
 		if (values.titulo && values.descricao && values.cor) {
 			categoriasRepository
-				.postCategoria({
+				.novaCategoria({
 					titulo: values.titulo,
 					descricao: values.descricao,
 					cor: values.cor,
 				})
-				.then(() => {
+				.then((categoriaCriada) => {
 					console.log("Cadastrou com sucesso!");
+					setCategorias([...categorias, categoriaCriada]);
 					notify.show(`Cadastrado com sucesso!`, "success", 4000);
 					clearForm();
-				});
+					setIsFetching(false);
+				})
+				.catch((err) => setIsFetching(true));
 		} else {
 			notify.show(`${titulo} ${descricao} ${cor}`, "custom", 2000, myColor);
+			setIsFetching(false);
 		}
+	}
+
+	function removerCategoria(idCategoria) {
+		console.log(idCategoria);
+		categoriasRepository
+			.deletarCategoria(idCategoria)
+			.then((res) => {
+				setCategorias([...categorias, res]);
+				clearForm();
+				setIsFetching(false);
+			})
+			.catch((err) => setIsFetching(true));
 	}
 
 	return (
@@ -89,9 +95,7 @@ function CadastroCategoria() {
 				</button>
 			</form>
 
-			{categorias.length === 0 && <div>Loading...</div>}
-
-			<TabelaCategoria categoria={categorias} deletar={deletar} />
+			{isFetching ? <Loading text="Cadastrando categoria" /> : <TabelaCategoria categoria={categorias} deletar={removerCategoria} />}
 		</PageDefault>
 	);
 }

@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 
 import "./tabela.css";
 import Button from "../../../../components/Button";
+
 export default function TabelaCategoria({ categoria, deletar }) {
 	return (
 		<div className="div-table">
