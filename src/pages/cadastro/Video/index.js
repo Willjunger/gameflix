@@ -11,11 +11,7 @@ function CadastroVideo() {
 	const history = useHistory();
 	const [categorias, setCategorias] = useState([]);
 	const categoryTitles = categorias.map(({ titulo }) => titulo);
-	const { handleChange, values } = useForm({
-		titulo: "teste",
-		url: "https://www.youtube.com/watch?v=NXDpWJhxhBI",
-		categoria: "FPS",
-	});
+	const { handleChange, values } = useForm();
 
 	useEffect(() => {
 		categoriasRepository.pegarCategorias().then((categoriasFromServer) => {

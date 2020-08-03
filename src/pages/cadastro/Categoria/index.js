@@ -18,10 +18,12 @@ function CadastroCategoria() {
 	};
 
 	const fetching = false;
-
+	const history = useHistory();
 	const { handleChange, values, clearForm } = useForm(valoresIniciais);
 	const [categorias, setCategorias] = useState([]);
 	const [isFetching, setIsFetching] = useState(fetching);
+	const [editando, setEditando] = useState(false);
+	const [edicao, setEdicao] = useState(valoresIniciais);
 
 	useEffect(() => {
 		categoriasRepository.pegarCategorias().then((resp) => {
@@ -66,22 +68,32 @@ function CadastroCategoria() {
 		}
 	}
 
-	function removerCategoria(idCategoria) {
-		console.log(idCategoria);
+	function removerCategoria(categoriaDeletada) {
+		setIsFetching(true);
+		console.log(categoriaDeletada);
 		categoriasRepository
-			.deletarCategoria(idCategoria)
+			.deletarCategoria(categoriaDeletada)
 			.then((res) => {
+				console.log(res);
 				setCategorias([...categorias, res]);
-				clearForm();
 				setIsFetching(false);
 			})
 			.catch((err) => setIsFetching(true));
 	}
 
+	function editarCategoria(categoriaEditada) {
+		// console.log(categoriaEditada);
+		// const oi = categoriaEditada;
+		// setEdicao(oi);
+		// console.log(edicao);
+		// categoriasRepository.editarCategoria(categoriaEditada).then((res) => {});
+		// history.push(`/editar/categoria/`);
+	}
+
 	return (
 		<PageDefault>
 			<Notifications />
-			<h1>Cadastro de Categoria</h1>
+			<h1>{editando ? "Editando Categoria" : "Cadastrando Categoria"}</h1>
 
 			<form onSubmit={handleSubmit}>
 				<FormField label="Titulo da Categoria" name="titulo" value={values.titulo} onChange={handleChange} />
@@ -91,11 +103,11 @@ function CadastroCategoria() {
 				<FormField label="Cor" type="color" name="cor" value={values.cor} onChange={handleChange} />
 
 				<button className="btn btn-salvar" type="submit">
-					Cadastrar
+					{editando ? "Salvar" : "Cadastrar"}
 				</button>
 			</form>
 
-			{isFetching ? <Loading text="Atualizando categoria" /> : <TabelaCategoria categoria={categorias} removerCategoria={removerCategoria} />}
+			{editando && isFetching ? <Loading text="Atualizando categoria" /> : <TabelaCategoria categoria={categorias} removerCategoria={removerCategoria} editarCategoria={editarCategoria} />}
 		</PageDefault>
 	);
 }

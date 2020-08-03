@@ -1,9 +1,10 @@
-import React from "react";
-
+import React, { useEffect, useState } from "react";
+import { useHistory } from "react-router-dom";
 import "./tabela.css";
 import Button from "../../../../components/Button";
 
-export default function TabelaCategoria({ categoria, removerCategoria }) {
+export default function TabelaCategoria({ categoria, removerCategoria, editarCategoria }) {
+	const history = useHistory();
 	return (
 		<div className="div-table">
 			<table>
@@ -21,10 +22,19 @@ export default function TabelaCategoria({ categoria, removerCategoria }) {
 							<td>{categoria.titulo}</td>
 							<td>{categoria.descricao}</td>
 							<td>
-								<Button>Editar</Button>
+								<Button
+									className="btn-editar"
+									onClick={() => {
+										editarCategoria(categoria);
+									}}
+								>
+									Editar
+								</Button>
 							</td>
 							<td>
-								<Button onClick={(categoria) => removerCategoria(categoria)}>Remover</Button>
+								<Button className="btn-remover" onClick={() => removerCategoria(categoria)}>
+									Remover
+								</Button>
 							</td>
 						</tr>
 					))}

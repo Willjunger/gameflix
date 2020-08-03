@@ -5,7 +5,6 @@ import Carousel from "../../components/Carousel";
 import categoriasRepository from "../../repositories/categorias";
 import PageDefault from "../../components/PageDefault";
 import Loading from "../../components/Loading";
-// import { Container, Text } from "../../components/Loading/style";
 
 function Home() {
 	const [dadosIniciais, setDadosIniciais] = useState([]);
@@ -23,7 +22,7 @@ function Home() {
 
 	return (
 		<PageDefault paddingAll={0}>
-			{dadosIniciais.length === 0 && <Loading width={200} height={200}></Loading>}
+			{dadosIniciais.length === 0 && <Loading text="Carregando..." width={200} height={200}></Loading>}
 
 			{dadosIniciais.map((categoria, indice) => {
 				if (indice === 0) {

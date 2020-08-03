@@ -54,8 +54,8 @@ function editarCategoria(objetoDaCategoria) {
 		body: JSON.stringify(objetoDaCategoria),
 	}).then(async (resp) => {
 		if (resp.ok) {
-			const categories = await resp.json();
-			return categories;
+			const resposta = await resp.json();
+			return resposta;
 		}
 		throw new Error("Não foi possível cadastrar a categoria");
 	});
@@ -71,8 +71,8 @@ function deletarCategoria(objetoDaCategoria) {
 		body: JSON.stringify(objetoDaCategoria),
 	}).then(async (resp) => {
 		if (resp.ok) {
-			const categories = await resp.json();
-			return categories;
+			const resposta = await resp.json();
+			return resposta;
 		}
 		throw new Error("Não foi possível cadastrar a categoria");
 	});
