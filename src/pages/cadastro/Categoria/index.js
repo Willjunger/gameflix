@@ -95,7 +95,7 @@ function CadastroCategoria() {
 				</button>
 			</form>
 
-			{isFetching ? <Loading text="Cadastrando categoria" /> : <TabelaCategoria categoria={categorias} deletar={removerCategoria} />}
+			{isFetching ? <Loading text="Atualizando categoria" /> : <TabelaCategoria categoria={categorias} removerCategoria={removerCategoria} />}
 		</PageDefault>
 	);
 }

@@ -3,7 +3,7 @@ import React from "react";
 import "./tabela.css";
 import Button from "../../../../components/Button";
 
-export default function TabelaCategoria({ categoria, deletar }) {
+export default function TabelaCategoria({ categoria, removerCategoria }) {
 	return (
 		<div className="div-table">
 			<table>
@@ -24,7 +24,7 @@ export default function TabelaCategoria({ categoria, deletar }) {
 								<Button>Editar</Button>
 							</td>
 							<td>
-								<Button onClick={() => deletar(categoria.id)}>Remover</Button>
+								<Button onClick={(categoria) => removerCategoria(categoria)}>Remover</Button>
 							</td>
 						</tr>
 					))}
